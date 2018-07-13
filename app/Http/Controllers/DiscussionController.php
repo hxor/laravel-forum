@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Channel;
+use App\Discussion;
 use Illuminate\Http\Request;
 use Session;
 
-class ChannelController extends Controller
+class DiscussionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,7 @@ class ChannelController extends Controller
      */
     public function index()
     {
-        $channels = Channel::all();
-        return view('pages.channel.index', compact('channels'));
+        //
     }
 
     /**
@@ -26,7 +25,7 @@ class ChannelController extends Controller
      */
     public function create()
     {
-        return view('pages.channel.create');
+        return view('pages.discuss.create');
     }
 
     /**
@@ -38,16 +37,20 @@ class ChannelController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'title' => 'required'
+            'channel_id' => 'required',
+            'title' => 'required',
+            'content' => 'required'
         ]);
-        
+
+        $request['user_id'] = $request->user()->id;
         $request['slug'] = str_slug($request->title, '-');
 
-        Channel::create($request->all());
+        $discuss = Discussion::create($request->all());
 
-        Session::flash('status', 'Channel Created');
+        Session::flash('status', 'Discussion successfully created.');
 
-        return redirect()->route('admin.channel.index');
+        return redirect()->route('discussion', ['slug' => $discuss->slug]);
+
     }
 
     /**
@@ -56,9 +59,10 @@ class ChannelController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
-        //
+        $disucuss = Discussion::where('slug', $slug)->first();
+        return view('pages.discuss.show', compact('discuss'));
     }
 
     /**
@@ -69,8 +73,7 @@ class ChannelController extends Controller
      */
     public function edit($id)
     {
-        $data = Channel::find($id);
-        return view('pages.channel.edit', compact('data'));
+        //
     }
 
     /**
@@ -82,18 +85,7 @@ class ChannelController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
-        $data = Channel::find($id);
-
-        $this->validate($request, [
-            'title' => 'required'
-        ]);
-
-        $data->update($request->all());
-
-        Session::flash('status', 'Channel Updated');
-
-        return redirect()->route('admin.channel.index');
+        //
     }
 
     /**
@@ -104,10 +96,6 @@ class ChannelController extends Controller
      */
     public function destroy($id)
     {
-        Channel::destroy($id);
-
-        Session::flash('status', 'Channel Deleted');
-
-        return redirect()->route('admin.channel.index');
+        //
     }
 }

@@ -12,8 +12,8 @@ class ChannelsTableSeeder extends Seeder
     public function run()
     {
         $data = [
-            ['title' => 'Channel-1'],
-            ['title' => 'Channel-2']
+            ['title' => 'Channel-1', 'slug' => 'channel-1'],
+            ['title' => 'Channel-2', 'slug' => 'channel-2']
         ];
 
         \DB::table('channels')->insert($data);
