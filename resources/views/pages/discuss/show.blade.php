@@ -9,6 +9,11 @@
     <div class="panel-heading">
         <img src="{{ $discuss->user->avatar }}" alt="" width="40px" height="40px">
         <span>{{ $discuss->user->name }}, <b>{{ $discuss->created_at->diffForHumans() }}</b></span>
+        @if ($discuss->isWatchedByAuth())
+            <a href="{{ route('discussion.unwatch', $discuss->id) }}" class="btn btn-xs btn-default pull-right">Unwatch</a>
+        @else
+            <a href="{{ route('discussion.watch', $discuss->id) }}" class="btn btn-xs btn-default pull-right">Watch</a>
+        @endif
     </div>
 
     <div class="panel-body">
@@ -59,7 +64,7 @@
                     <textarea name="content" id="content" cols="30" rows="10" class="form-control"></textarea>
                 </div>
                 <div class="form-group">
-                    <button class="btn btn-succss pull-right">Reply</button>
+                    <button class="btn btn-succss pull-right">Leave a reply</button>
                 </div>
             </form>
         @else

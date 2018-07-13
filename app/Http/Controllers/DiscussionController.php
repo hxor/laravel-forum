@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Discussion;
 use App\Reply;
+use App\User;
 use Illuminate\Http\Request;
 use Session;
+use Notification;
+use App\Notifications\ReplyNotification;
 
 class DiscussionController extends Controller
 {
@@ -68,6 +71,8 @@ class DiscussionController extends Controller
 
     public function reply(Request $request, $id)
     {
+        $discuss = Discussion::find($id);
+
         $this->validate($request, [
             'content' => 'required'
         ]);
@@ -76,6 +81,16 @@ class DiscussionController extends Controller
         $request['discussion_id'] = $id;
 
         Reply::create($request->all());
+
+        $discuss = Discussion::find($id);
+
+        $watchers = [];
+
+        foreach($discuss->watchers as $watcher) {
+            array_push($watchers, User::find($watcher->user_id));
+        }
+        
+        Notification::send($watchers, new ReplyNotification($discuss));
 
         Session::flash('status', 'Discussion successfully replied.');
 
