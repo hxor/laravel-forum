@@ -32,4 +32,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('discussion', ['uses' => 'DiscussionController@store', 'as' => 'discussion.store']);
     Route::get('/discussion/{slug}', ['uses' => 'DiscussionController@show', 'as' => 'discussion.show']);
     Route::post('/discussion/{id}/reply', ['uses' => 'DiscussionController@reply', 'as' => 'discussion.reply']);
+
+    Route::get('/reply/{id}/like', ['uses' => 'ReplyController@like', 'as' => 'reply.like']);
+    Route::get('/reply/{id}/unlike', ['uses' => 'ReplyController@unlike', 'as' => 'reply.unlike']);
 });

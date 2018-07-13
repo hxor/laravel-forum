@@ -40,7 +40,11 @@
         </div>
     
         <div class="panel-footer">
-            Like
+            @if ($reply->isLikedByAuth())
+                <a href="{{ route('reply.unlike', $reply->id) }}" class="btn btn-xs btn-danger">Unlike <span class="badge">{{ $reply->likes->count() }}</span></a>
+            @else
+                <a href="{{ route('reply.like', $reply->id) }}" class="btn btn-xs btn-success">Like <span class="badge">{{ $reply->likes->count() }}</span></a>
+            @endif
         </div>
     </div>
 @endforeach

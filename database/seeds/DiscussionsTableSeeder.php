@@ -45,7 +45,13 @@ class DiscussionsTableSeeder extends Seeder
             ],
         ];
 
+        $data3 = [
+            ['user_id' => 1, 'reply_id' => 1, 'created_at' => new DateTime(), 'updated_at' => new DateTime()],
+            ['user_id' => 1, 'reply_id' => 2, 'created_at' => new DateTime(), 'updated_at' => new DateTime()],
+        ];
+
         \DB::table('discussions')->insert($data);
         \DB::table('replies')->insert($data2);
+        \DB::table('likes')->insert($data3);
     }
 }

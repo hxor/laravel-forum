@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Auth;
 
 class Reply extends Model
 {
@@ -20,8 +21,24 @@ class Reply extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function replies()
+    public function likes()
     {
-        return $this->hasMany(Reply::class);
+        return $this->hasMany(Like::class);
+    }
+
+    public function isLikedByAuth()
+    {
+        $id = Auth::id();
+        $likers = [];
+
+        foreach($this->likes as $like){
+            array_push($likers, $like->user_id);
+        }
+
+        if(in_array($id, $likers)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
