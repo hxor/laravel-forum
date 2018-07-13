@@ -79,7 +79,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel Forum
+                    <a href="{{ route('forum.index') }}" style="text-decoration: none; color: black;">Laravel Forum</a>
                 </div>
 
                 <div class="links">

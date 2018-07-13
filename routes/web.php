@@ -20,6 +20,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/forum', 'ForumController@index')->name('forum.index');
+Route::get('/forum/channel/{slug}', ['uses' => 'ForumController@channel', 'as' => 'forum.channel']);
 
 Route::get('{provider}/auth', 'SocialController@auth')->name('social.auth');
 Route::get('{provider}/redirect', 'SocialController@authRedirect')->name('social.callback');
@@ -28,6 +29,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::resource('channel', 'ChannelController');
     });
+
     Route::get('discussion/create', ['uses' => 'DiscussionController@create', 'as' => 'discussion.create']);
     Route::post('discussion', ['uses' => 'DiscussionController@store', 'as' => 'discussion.store']);
     Route::get('/discussion/{slug}', ['uses' => 'DiscussionController@show', 'as' => 'discussion.show']);
