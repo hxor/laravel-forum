@@ -10,6 +10,6 @@ class Channel extends Model
 
     public function discussions()
     {
-        return $this->hasMany(\App\Discussion::class);
+        return $this->hasMany(Discussion::class);
     }
 }

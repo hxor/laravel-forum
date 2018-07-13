@@ -12,11 +12,16 @@ class Reply extends Model
 
     public function discussion()
     {
-        return $this->belongsTo(\App\Discussion::class);
+        return $this->belongsTo(Discussion::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
     public function replies()
     {
-        return $this->hasMany(\App\Reply::class);
+        return $this->hasMany(Reply::class);
     }
 }

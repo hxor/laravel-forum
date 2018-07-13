@@ -19,6 +19,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/forum', 'ForumController@index')->name('forum.index');
+
 Route::get('{provider}/auth', 'SocialController@auth')->name('social.auth');
 Route::get('{provider}/redirect', 'SocialController@authRedirect')->name('social.callback');
 
@@ -28,5 +30,6 @@ Route::group(['middleware' => ['auth']], function() {
     });
     Route::get('discussion/create', ['uses' => 'DiscussionController@create', 'as' => 'discussion.create']);
     Route::post('discussion', ['uses' => 'DiscussionController@store', 'as' => 'discussion.store']);
-    Route::get('/discussion/{slug}', ['uses' => 'DiscussionController@show', 'discussion.show']);
+    Route::get('/discussion/{slug}', ['uses' => 'DiscussionController@show', 'as' => 'discussion.show']);
+    Route::post('/discussion/{id}/reply', ['uses' => 'DiscussionController@reply', 'as' => 'discussion.reply']);
 });

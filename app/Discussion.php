@@ -10,11 +10,16 @@ class Discussion extends Model
 
     public function channel()
     {
-        return $this->belongsTo(\App\Channel::class);
+        return $this->belongsTo(Channel::class);
     }
 
     public function user()
     {
-        return $this->belongsTo(\App\User::class);
+        return $this->belongsTo(User::class);
+    }
+
+    public function replies()
+    {
+        return $this->hasMany(Reply::class);
     }
 }

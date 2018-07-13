@@ -29,6 +29,6 @@ class User extends Authenticatable
 
     public function discussions()
     {
-        return $this->hasMany(\App\Discussion::class);
+        return $this->hasMany(Discussion::class);
     }
 }

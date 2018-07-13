@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Discussion;
+use App\Reply;
 use Illuminate\Http\Request;
 use Session;
 
@@ -61,8 +62,25 @@ class DiscussionController extends Controller
      */
     public function show($slug)
     {
-        $disucuss = Discussion::where('slug', $slug)->first();
+        $discuss = Discussion::where('slug', $slug)->first();
         return view('pages.discuss.show', compact('discuss'));
+    }
+
+    public function reply(Request $request, $id)
+    {
+        $this->validate($request, [
+            'content' => 'required'
+        ]);
+
+        $request['user_id'] = $request->user()->id;
+        $request['discussion_id'] = $id;
+
+        Reply::create($request->all());
+
+        Session::flash('status', 'Discussion successfully replied.');
+
+        return redirect()->back();
+
     }
 
     /**
