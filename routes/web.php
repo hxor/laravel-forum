@@ -21,3 +21,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('{provider}/auth', 'SocialController@auth')->name('social.auth');
 Route::get('{provider}/redirect', 'SocialController@authRedirect')->name('social.callback');
+
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], function() {
+    Route::resource('channel', 'ChannelController');
+});
