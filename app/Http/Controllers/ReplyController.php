@@ -40,4 +40,15 @@ class ReplyController extends Controller
 
         return redirect()->back();
     }
+
+    public function removeBestAnswer($id)
+    {
+        $reply = Reply::find($id);
+        $reply->update([
+            'is_answered' => 0
+        ]);
+        request()->session()->flash('success', 'Reply has been removed as the best answer.');
+
+        return redirect()->back();
+    }
 }

@@ -51,9 +51,13 @@
         <div class="panel-heading">
             <img src="{{ $reply->user->avatar }}" alt="" width="40px" height="40px">
             <span>{{ $reply->user->name }}, <b>{{ $discuss->created_at->diffForHumans() }}</b></span>
-            @if (!$bestAnswer)
-                @if (Auth::id() == $discuss->user->id)
+            
+            @if (Auth::id() == $discuss->user->id)
+                @if (!$bestAnswer)
                     <a href="{{ route('reply.answered', $reply->id) }}" class="btn btn-xs btn-info pull-right">Mark as best answer</a>
+                @endif
+                @if ($reply->is_answered)
+                    <a href="{{ route('reply.answered.remove', $reply->id) }}" class="btn btn-xs btn-danger pull-right">Remove as best answer</a>
                 @endif
             @endif
         </div>
