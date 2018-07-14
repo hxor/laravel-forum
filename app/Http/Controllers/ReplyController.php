@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Like;
+use App\Reply;
 use Illuminate\Http\Request;
-use Session;
 
 class ReplyController extends Controller
 {
@@ -15,7 +15,7 @@ class ReplyController extends Controller
             'reply_id' => $id
         ]);
 
-        Session::flash('status', 'You liked the reply.');
+        $request->session()->flash('status', 'You liked the reply.');
 
         return redirect()->back();
     }
@@ -24,7 +24,19 @@ class ReplyController extends Controller
     {
         Like::where('user_id', $request->user()->id)->where('reply_id', $id)->delete();
 
-        Session::flash('status', 'You unliked the reply.');
+        $request->session()->flash('status', 'You unliked the reply.');
+
+        return redirect()->back();
+    }
+
+    public function bestAnswer($id)
+    {
+        $reply = Reply::find($id);
+        $reply->update([
+            'is_answered' => 1
+        ]);
+
+        request()->session()->flash('status', 'Reply has been marked as the best answer.');
 
         return redirect()->back();
     }

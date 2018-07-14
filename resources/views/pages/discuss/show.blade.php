@@ -24,6 +24,21 @@
         <div class="text-center">
             {{ $discuss->content }}
         </div>
+        <hr>
+        @if ($bestAnswer)
+            <div class="text-center">
+                <h4 class="text-center">Best Answer</h4> 
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <img src="{{ $bestAnswer->user->avatar }}" alt="" width="40px" height="40px">
+                        <span>{{ $bestAnswer->user->name }}</span>                        
+                    </div>
+                    <div class="panel-body">
+                        {{ $bestAnswer->content }}
+                    </div>
+                </div>
+            </div>
+        @endif
     </div>
 
     <div class="panel-footer">
@@ -36,6 +51,11 @@
         <div class="panel-heading">
             <img src="{{ $reply->user->avatar }}" alt="" width="40px" height="40px">
             <span>{{ $reply->user->name }}, <b>{{ $discuss->created_at->diffForHumans() }}</b></span>
+            @if (!$bestAnswer)
+                @if (Auth::id() == $discuss->user->id)
+                    <a href="{{ route('reply.answered', $reply->id) }}" class="btn btn-xs btn-info pull-right">Mark as best answer</a>
+                @endif
+            @endif
         </div>
     
         <div class="panel-body">
@@ -64,7 +84,7 @@
                     <textarea name="content" id="content" cols="30" rows="10" class="form-control"></textarea>
                 </div>
                 <div class="form-group">
-                    <button class="btn btn-succss pull-right">Leave a reply</button>
+                    <button class="btn btn-success pull-right">Leave a reply</button>
                 </div>
             </form>
         @else
