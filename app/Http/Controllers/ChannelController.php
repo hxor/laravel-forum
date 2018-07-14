@@ -45,7 +45,7 @@ class ChannelController extends Controller
 
         Channel::create($request->all());
 
-        Session::flash('status', 'Channel Created');
+        Session::flash('success', 'Channel Created');
 
         return redirect()->route('admin.channel.index');
     }
@@ -91,7 +91,7 @@ class ChannelController extends Controller
 
         $data->update($request->all());
 
-        Session::flash('status', 'Channel Updated');
+        Session::flash('success', 'Channel Updated');
 
         return redirect()->route('admin.channel.index');
     }
@@ -106,7 +106,7 @@ class ChannelController extends Controller
     {
         Channel::destroy($id);
 
-        Session::flash('status', 'Channel Deleted');
+        Session::flash('success', 'Channel Deleted');
 
         return redirect()->route('admin.channel.index');
     }

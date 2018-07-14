@@ -42,8 +42,8 @@ class DiscussionController extends Controller
     {
         $this->validate($request, [
             'channel_id' => 'required',
-            'title' => 'required',
-            'content' => 'required'
+            'title' => 'required|min:5',
+            'content' => 'required|min:10'
         ]);
 
         $request['user_id'] = $request->user()->id;
@@ -51,9 +51,9 @@ class DiscussionController extends Controller
 
         $discuss = Discussion::create($request->all());
 
-        Session::flash('status', 'Discussion successfully created.');
+        Session::flash('success', 'Discussion successfully created.');
 
-        return redirect()->route('discussion', ['slug' => $discuss->slug]);
+        return redirect()->route('discussion.show', $discuss->slug);
 
     }
 
@@ -75,7 +75,7 @@ class DiscussionController extends Controller
         $discuss = Discussion::find($id);
 
         $this->validate($request, [
-            'content' => 'required'
+            'content' => 'required|min:3'
         ]);
 
         $request['user_id'] = $request->user()->id;
@@ -93,7 +93,7 @@ class DiscussionController extends Controller
         
         Notification::send($watchers, new ReplyNotification($discuss));
 
-        Session::flash('status', 'Discussion successfully replied.');
+        Session::flash('success', 'Discussion successfully replied.');
 
         return redirect()->back();
 

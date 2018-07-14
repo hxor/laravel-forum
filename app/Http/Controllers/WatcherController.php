@@ -14,7 +14,7 @@ class WatcherController extends Controller
             'discussion_id' => $id
         ]);
 
-        \Session::flash('status', 'You are watching this discussion.');
+        \Session::flash('success', 'You are watching this discussion.');
 
         return redirect()->back();
     }
@@ -23,7 +23,7 @@ class WatcherController extends Controller
     {
         Watcher::where('user_id', request()->user()->id)->where('discussion_id', $id)->delete();
 
-        \Session::flash('status', 'You are no longer watching this discussion.');
+        \Session::flash('success', 'You are no longer watching this discussion.');
 
         return redirect()->back();
     }

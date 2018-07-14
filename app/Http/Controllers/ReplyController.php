@@ -15,7 +15,7 @@ class ReplyController extends Controller
             'reply_id' => $id
         ]);
 
-        $request->session()->flash('status', 'You liked the reply.');
+        $request->session()->flash('success', 'You liked the reply.');
 
         return redirect()->back();
     }
@@ -24,7 +24,7 @@ class ReplyController extends Controller
     {
         Like::where('user_id', $request->user()->id)->where('reply_id', $id)->delete();
 
-        $request->session()->flash('status', 'You unliked the reply.');
+        $request->session()->flash('success', 'You unliked the reply.');
 
         return redirect()->back();
     }
@@ -36,7 +36,7 @@ class ReplyController extends Controller
             'is_answered' => 1
         ]);
 
-        request()->session()->flash('status', 'Reply has been marked as the best answer.');
+        request()->session()->flash('success', 'Reply has been marked as the best answer.');
 
         return redirect()->back();
     }

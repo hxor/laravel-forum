@@ -11,6 +11,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
+    <link rel="stylesheet" href="{{ asset('vendor/toastr/jquery.toast.min.css') }}">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
@@ -112,5 +113,21 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('vendor/toastr/jquery.toast.min.js') }}"></script>
+    <script>
+        $(function() {
+            @if(Session::has('success'))
+                $.toast({
+                    heading: 'Success!',
+                    text: '{{ Session::get("success") }}',
+                    position: 'top-right',
+                    loaderBg:'#ff6849',
+                    icon: 'success',
+                    hideAfter: 3500, 
+                    stack: 6
+                });
+            @endif
+        });
+    </script>
 </body>
 </html>

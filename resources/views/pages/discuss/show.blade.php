@@ -77,11 +77,20 @@
 <div class="panel panel-default">
     <div class="panel-body">
         @if (Auth::check())
+            @if ($errors->count() > 0)
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li class="text-danger">
+                            {{ $error }}
+                        </li>
+                    @endforeach
+                </ul>
+            @endif
             <form action="{{ route('discussion.reply', $discuss->id) }}" method="POST">
                 {{ csrf_field() }}
                 <div class="form-group">
                     <label for="reply">Leave a reply ...</label>
-                    <textarea name="content" id="content" cols="30" rows="10" class="form-control"></textarea>
+                    <textarea name="content" id="content" cols="30" rows="10" class="form-control">{{ old('content') }}</textarea>
                 </div>
                 <div class="form-group">
                     <button class="btn btn-success pull-right">Leave a reply</button>
