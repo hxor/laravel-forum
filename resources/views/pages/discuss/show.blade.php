@@ -9,10 +9,18 @@
     <div class="panel-heading">
         <img src="{{ $discuss->user->avatar }}" alt="" width="40px" height="40px">
         <span>{{ $discuss->user->name }}, <b>{{ $discuss->created_at->diffForHumans() }}</b></span>
+        @if (Auth::id() == $discuss->user->id)
+        <a href="{{ route('discussion.edit', $discuss->id) }}" class="btn btn-sm btn-info pull-right">Edit</a>
+        @endif
+        @if ($discuss->hasBestAnswer())
+            <span class="btn btn-sm btn-success pull-right">Closed</span>
+            @else
+            <span class="btn btn-sm btn-danger pull-right">Open</span>
+        @endif
         @if ($discuss->isWatchedByAuth())
-            <a href="{{ route('discussion.unwatch', $discuss->id) }}" class="btn btn-xs btn-default pull-right">Unwatch</a>
+            <a href="{{ route('discussion.unwatch', $discuss->id) }}" class="btn btn-sm btn-default pull-right">Unwatch</a>
         @else
-            <a href="{{ route('discussion.watch', $discuss->id) }}" class="btn btn-xs btn-default pull-right">Watch</a>
+            <a href="{{ route('discussion.watch', $discuss->id) }}" class="btn btn-sm btn-default pull-right">Watch</a>
         @endif
     </div>
 

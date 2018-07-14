@@ -34,6 +34,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('discussion', ['uses' => 'DiscussionController@store', 'as' => 'discussion.store']);
     Route::get('/discussion/{slug}', ['uses' => 'DiscussionController@show', 'as' => 'discussion.show']);
     Route::post('/discussion/{id}/reply', ['uses' => 'DiscussionController@reply', 'as' => 'discussion.reply']);
+    Route::get('/discussion/{id}/edit', ['uses' => 'DiscussionController@edit', 'as' => 'discussion.edit']);
+    Route::put('/discussion/{id}', ['uses' => 'DiscussionController@update', 'as' => 'discussion.update']);
 
     Route::get('/discussion/{id}/watch', ['uses' => 'WatcherController@watch', 'as' => 'discussion.watch']);
     Route::get('/discussion/{id}/unwatch', ['uses' => 'WatcherController@unwatch', 'as' => 'discussion.unwatch']);

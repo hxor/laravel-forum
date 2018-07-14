@@ -6,11 +6,11 @@
             <img src="{{ $row->user->avatar }}" alt="" width="40px" height="40px">
             <span>{{ $row->user->name }}, <b>{{ $row->created_at->diffForHumans() }}</b></span>
             @if ($row->hasBestAnswer())
-                <span class="btn btn-success pull-right">Closed</span>
+                <span class="btn btn-sm btn-success pull-right">Closed</span>
                 @else
-                <span class="btn btn-danger pull-right">Open</span>
+                <span class="btn btn-sm btn-danger pull-right">Open</span>
             @endif
-            <a href="{{ route('discussion.show', $row->slug) }}" class="btn btn-default pull-right">View</a>
+            <a href="{{ route('discussion.show', $row->slug) }}" class="btn btn-sm btn-default pull-right">View</a>
         </div>
     
         <div class="panel-body">

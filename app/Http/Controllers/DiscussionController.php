@@ -107,7 +107,9 @@ class DiscussionController extends Controller
      */
     public function edit($id)
     {
-        //
+        $discuss = Discussion::findOrFail($id);
+
+        return view('pages.discuss.edit', compact('discuss'));
     }
 
     /**
@@ -119,7 +121,19 @@ class DiscussionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $discuss = Discussion::findOrFail($id);
+
+        $this->validate($request, [
+            'content' => 'required|min:10'
+        ]);
+
+        $discuss->update([
+            'content' => $request->content
+        ]);
+
+        Session::flash('success', 'Discussion successfully updated.');
+
+        return redirect()->route('discussion.show', $discuss->slug);
     }
 
     /**

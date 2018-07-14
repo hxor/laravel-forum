@@ -10,7 +10,16 @@ class ForumController extends Controller
 {
     public function index()
     {
-        $discuss = Discussion::orderBy('created_at', 'desc')->paginate(3);
+        // $discuss = Discussion::orderBy('created_at', 'desc')->paginate(3);
+        switch (request('filter')) {
+            case 'me':
+                $discuss = Discussion::where('user_id', request()->user()->id)->orderBy('created_at', 'desc')->paginate(3);
+                break;
+                
+            default:
+                $discuss = Discussion::orderBy('created_at', 'desc')->paginate(3);
+                break;
+        }
         return view('pages.forum.index', compact('discuss'));
     }
 

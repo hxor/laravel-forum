@@ -82,9 +82,12 @@
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <ul class="list-group">
-                          <li class="list-group-item">
-                              <a href="{{ route('forum.index') }}">Home</a>
-                          </li>
+                            <li class="list-group-item">
+                                <a href="{{ route('forum.index') }}">Home</a>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="{{ url('/forum?filter=me') }}">My Discussion</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
