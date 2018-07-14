@@ -8,6 +8,39 @@ use Illuminate\Http\Request;
 
 class ReplyController extends Controller
 {
+    public function edit($id)
+    {
+        $reply = Reply::findOrFail($id);
+        return view('pages.reply.edit', compact('reply'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $reply = Reply::findOrFail($id);
+
+        $this->validate($request, [
+            'content' => 'required|min:10'
+        ]);
+
+        $reply->update([
+            'content' => $request->content
+        ]);
+
+        request()->session()->flash('success', 'Answer successfully updated.');
+
+        return redirect()->route('discussion.show', $reply->discussion->slug);
+    }
+
+    public function destroy($id)
+    {
+        $reply = Reply::findOrFail($id);
+        $reply->delete();
+
+        request()->session()->flash('success', 'Answer successfully deleted.');
+
+        return redirect()->route('discussion.show', $reply->discussion->slug);
+    }
+
     public function like(Request $request, $id)
     {
         Like::create([

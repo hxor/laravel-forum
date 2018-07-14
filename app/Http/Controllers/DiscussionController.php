@@ -144,6 +144,11 @@ class DiscussionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $discuss = Discussion::findOrFail($id);
+        $discuss->delete();
+
+        request()->session()->flash('success', 'Discussion successfully deleted.');
+
+        return redirect()->route('forum.index');
     }
 }

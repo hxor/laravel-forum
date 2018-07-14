@@ -9,13 +9,10 @@
     <div class="panel-heading">
         <img src="{{ $discuss->user->avatar }}" alt="" width="40px" height="40px">
         <span>{{ $discuss->user->name }}, <b>{{ $discuss->created_at->diffForHumans() }}</b></span>
-        @if (Auth::id() == $discuss->user->id)
-        <a href="{{ route('discussion.edit', $discuss->id) }}" class="btn btn-sm btn-info pull-right">Edit</a>
-        @endif
         @if ($discuss->hasBestAnswer())
-            <span class="btn btn-sm btn-success pull-right">Closed</span>
+            <span class="btn btn-sm btn-default pull-right">Closed</span>
             @else
-            <span class="btn btn-sm btn-danger pull-right">Open</span>
+            <span class="btn btn-sm btn-success pull-right">Open</span>
         @endif
         @if ($discuss->isWatchedByAuth())
             <a href="{{ route('discussion.unwatch', $discuss->id) }}" class="btn btn-sm btn-default pull-right">Unwatch</a>
@@ -50,6 +47,13 @@
     </div>
 
     <div class="panel-footer">
+        @if (Auth::id() == $discuss->user->id)
+            <form action="{{ route('discussion.destroy', $discuss->id) }}" method="POST">
+                {{ method_field('DELETE') }}{{ csrf_field() }}
+                <button type="submit" class="btn btn-sm btn-danger pull-right" onclick="confirm('Are you sure want to delete this discussion ?')">Delete</button>
+                <a href="{{ route('discussion.edit', $discuss->id) }}" class="btn btn-sm btn-primary pull-right">Edit</a>
+            </form>
+        @endif
         <p>{{ $discuss->replies->count() }} Replies</p>
     </div>
 </div>
@@ -77,6 +81,13 @@
         </div>
     
         <div class="panel-footer">
+            @if (Auth::id() == $reply->user_id)
+                <form action="{{ route('reply.destroy', $reply->id) }}" method="POST">
+                    {{ method_field('DELETE') }}{{ csrf_field() }}
+                    <button class="btn btn-xs btn-danger pull-right" type="submit" onclick="confirm('Are you sure want to delete this reply ?')">Delete</button>
+                    <a href="{{ route('reply.edit', $reply->id) }}" class="btn btn-xs btn-primary pull-right">Edit</a>
+                </form>
+            @endif
             @if ($reply->isLikedByAuth())
                 <a href="{{ route('reply.unlike', $reply->id) }}" class="btn btn-xs btn-danger">Unlike <span class="badge">{{ $reply->likes->count() }}</span></a>
             @else
