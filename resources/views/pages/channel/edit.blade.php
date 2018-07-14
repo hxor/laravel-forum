@@ -4,6 +4,15 @@
     <div class="panel-heading">Channel</div>
 
     <div class="panel-body">
+        @if ($errors->count() > 0)
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li class="text-danger">
+                        {{ $error }}
+                    </li>
+                @endforeach
+            </ul>
+        @endif
         <form action="{{ route('admin.channel.update', $data->id) }}" method="POST" class="">
             {{ method_field('PUT') }} {{ csrf_field() }}
 

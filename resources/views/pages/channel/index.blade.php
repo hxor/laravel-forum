@@ -1,7 +1,10 @@
 @extends('layouts.app') 
 @section('content')
     <div class="panel panel-default">
-        <div class="panel-heading">Channels</div>
+        <div class="panel-heading">
+            Channels
+            <a href="{{ route('admin.channel.create') }}" class="btn btn-xs btn-success pull-right">Create</a>
+        </div>
 
         <div class="panel-body">
             @if (session('status'))

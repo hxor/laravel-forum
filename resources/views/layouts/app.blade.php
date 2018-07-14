@@ -91,7 +91,16 @@
                         </ul>
                     </div>
                 </div>
-
+                <hr>
+                @if (Auth::check())
+                    @if (Auth::user()->admin)
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <a href="{{ route('admin.channel.index') }}" class="form-control btn btn-primary">Create a new channel</a>
+                            </div>
+                        </div>
+                    @endif
+                @endif
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         Channels

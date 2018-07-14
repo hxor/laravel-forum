@@ -47,7 +47,7 @@
     </div>
 
     <div class="panel-footer">
-        @if (Auth::id() == $discuss->user->id)
+        @if (Auth::id() == $discuss->user->id || Auth::user()->admin == 1)
             <form action="{{ route('discussion.destroy', $discuss->id) }}" method="POST">
                 {{ method_field('DELETE') }}{{ csrf_field() }}
                 <button type="submit" class="btn btn-sm btn-danger pull-right" onclick="confirm('Are you sure want to delete this discussion ?')">Delete</button>
@@ -81,7 +81,7 @@
         </div>
     
         <div class="panel-footer">
-            @if (Auth::id() == $reply->user_id)
+            @if (Auth::id() == $reply->user_id  || Auth::user()->admin == 1)
                 <form action="{{ route('reply.destroy', $reply->id) }}" method="POST">
                     {{ method_field('DELETE') }}{{ csrf_field() }}
                     <button class="btn btn-xs btn-danger pull-right" type="submit" onclick="confirm('Are you sure want to delete this reply ?')">Delete</button>
