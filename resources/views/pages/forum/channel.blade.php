@@ -4,12 +4,7 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <img src="{{ $row->user->avatar }}" alt="" width="40px" height="40px">
-            <span>{{ $row->user->name }}, <b>{{ $row->created_at->diffForHumans() }}</b></span>
-            @if ($row->hasBestAnswer())
-                <span class="btn btn-sm btn-success pull-right">Closed</span>
-                @else
-                <span class="btn btn-sm btn-danger pull-right">Open</span>
-            @endif
+            <span><b><a href="{{ route('profile.show', $row->user->id) }}">{{ $row->user->name }}</a>, {{ $row->created_at->diffForHumans() }}</b>
             <a href="{{ route('discussion.show', $row->slug) }}" class="btn btn-sm btn-default pull-right">View</a>
         </div>
 

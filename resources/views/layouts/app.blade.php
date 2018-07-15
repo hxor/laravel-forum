@@ -78,11 +78,13 @@
 
         <div class="container">
             <div class="col-md-4">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <a href="{{ route('discussion.create') }}" class="form-control btn btn-primary">Create a new discussion</a>
+                @if (Auth::check())
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <a href="{{ route('discussion.create') }}" class="form-control btn btn-primary">Create a new discussion</a>
+                        </div>
                     </div>
-                </div>
+                @endif
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <ul class="list-group">

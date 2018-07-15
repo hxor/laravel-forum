@@ -68,10 +68,10 @@
             </form>
         </div>
 
-        <div class="panel-footer">
+        {{-- <div class="panel-footer">
             Register with social media:
             <a href="{{ route('social.auth', ['provider'=>'github']) }}" class="btn btn-sm btn-primary">GitHub</a>
             <a href="{{ route('social.auth', ['provider'=>'facebook']) }}" class="btn btn-sm btn-primary">Facebook</a>
-        </div>
+        </div> --}}
     </div>
 @endsection

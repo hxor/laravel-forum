@@ -7,13 +7,8 @@
     @endif
 <div class="panel panel-default">
     <div class="panel-heading">
-        <img src="{{ $discuss->user->avatar }}" alt="" width="40px" height="40px">
+        <img src="{{ substr($discuss->user->avatar, 0, 4) == 'http' ? $discuss->user->avatar : asset($discuss->user->avatar) }}" alt="" width="40px" height="40px">
         <span>{{ $discuss->user->name }}, <b>{{ $discuss->created_at->diffForHumans() }}</b></span>
-        @if ($discuss->hasBestAnswer())
-            <span class="btn btn-sm btn-default pull-right">Closed</span>
-            @else
-            <span class="btn btn-sm btn-success pull-right">Open</span>
-        @endif
         @if ($discuss->isWatchedByAuth())
             <a href="{{ route('discussion.unwatch', $discuss->id) }}" class="btn btn-sm btn-default pull-right">Unwatch</a>
         @else

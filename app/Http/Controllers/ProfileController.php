@@ -71,7 +71,8 @@ class ProfileController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::findOrFail($id);
+        return view('pages.profile.show', compact('user'));
     }
 
     /**

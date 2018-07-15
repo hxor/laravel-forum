@@ -52,18 +52,18 @@
                             Login
                         </button>
 
-                        <a class="btn btn-link" href="{{ route('password.request') }}">
+                        {{-- <a class="btn btn-link" href="{{ route('password.request') }}">
                             Forgot Your Password?
-                        </a>
+                        </a> --}}
                     </div>
                 </div>
             </form>
         </div>
 
-        <div class="panel-footer">
+        {{-- <div class="panel-footer">
             Login with social media:
             <a href="{{ route('social.auth', ['provider'=>'github']) }}" class="btn btn-sm btn-primary">GitHub</a>
             <a href="{{ route('social.auth', ['provider'=>'facebook']) }}" class="btn btn-sm btn-primary">Facebook</a>
-        </div>
+        </div> --}}
     </div>
 @endsection
