@@ -13,6 +13,7 @@
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('vendor/toastr/jquery.toast.min.css') }}">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('vendor/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}">
 </head>
 <body>
     <div id="app">
@@ -53,6 +54,9 @@
                                 </a>
 
                                 <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="{{ route('profile.index') }}">Profile</a>
+                                    </li>
                                     <li>
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
@@ -126,6 +130,7 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('vendor/toastr/jquery.toast.min.js') }}"></script>
+    <script src="{{ asset('vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
     <script>
         $(function() {
             @if(Session::has('success'))
@@ -139,6 +144,11 @@
                     stack: 6
                 });
             @endif
+            $('.date-picker').datepicker({
+                format: "yyyy-mm-dd",
+                autoclose: true,
+                todayHighlight: true
+            });
         });
     </script>
 </body>

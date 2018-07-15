@@ -48,4 +48,6 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/reply/{id}/unlike', ['uses' => 'ReplyController@unlike', 'as' => 'reply.unlike']);
     Route::get('/reply/{id}/answered', ['uses' => 'ReplyController@bestAnswer', 'as' => 'reply.answered']);
     Route::get('/reply/{id}/answered/remove', ['uses' => 'ReplyController@removeBestAnswer', 'as' => 'reply.answered.remove']);
+
+    Route::resource('/profile', 'ProfileController');
 });
